@@ -1,14 +1,27 @@
 use std::time::Duration;
 
-use criterion::{criterion_group, criterion_main, Criterion};
+use criterion::{criterion_group, criterion_main, BatchSize, Criterion};
 
-pub fn alldays_benchmark(c: &mut Criterion) {
-    c.bench_function("all", |b| {
-        b.iter(|| {
-            (
-            )
-        })
+pub fn day20_benchmark(c: &mut Criterion) {
+    let mut group = c.benchmark_group("day20");
+
+    group.bench_function("parsing", |b| b.iter(day20::load_input));
+
+    let input = day20::load_input();
+
+    group.bench_function("part1", |b| b.iter(|| day20::solve_part1(&input)));
+
+    group.bench_function("part2", |b| {
+        b.iter_batched_ref(
+            || input.clone(),
+            |input| day20::solve_part2(input),
+            BatchSize::SmallInput,
+        )
     });
+
+    group.bench_function("solve", |b| b.iter(day20::solve));
+
+    group.finish()
 }
 
 criterion_group! {
@@ -16,13 +29,13 @@ criterion_group! {
 
     config = Criterion::default()
         .significance_level(0.1)
-        .sample_size(500)
-        .measurement_time(Duration::from_secs(30))
-        .warm_up_time(Duration::from_secs(15))
+        .sample_size(350)
+        .measurement_time(Duration::from_secs(10))
+        .warm_up_time(Duration::from_secs(5))
         .noise_threshold(0.05);
 
     targets =
-        alldays_benchmark
+        day20_benchmark
 }
 
 criterion_main!(benches);
