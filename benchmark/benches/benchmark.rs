@@ -1,7 +1,6 @@
 use std::time::Duration;
 
 use criterion::{criterion_group, criterion_main, BatchSize, Criterion};
-use day23::load_input;
 
 pub fn day20_benchmark(c: &mut Criterion) {
     let mut group = c.benchmark_group("day20");
@@ -51,6 +50,14 @@ pub fn day23_benchmark(c: &mut Criterion) {
     group.finish()
 }
 
+pub fn day21_benchmark(c: &mut Criterion) {
+    let mut group = c.benchmark_group("day21");
+
+    group.bench_function("solve", |b| b.iter(day21::solve));
+
+    group.finish()
+}
+
 criterion_group! {
     name = benches;
 
@@ -63,6 +70,7 @@ criterion_group! {
 
     targets =
         day20_benchmark,
+        day21_benchmark,
         day23_benchmark,
 }
 
