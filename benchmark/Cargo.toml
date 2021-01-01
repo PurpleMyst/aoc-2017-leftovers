@@ -8,6 +8,7 @@ edition = "2018"
 day20 = { path = "../day20" }
 day23 = { path = "../day23" }
 day21 = { path = "../day21" }
+day25 = { path = "../day25" }
 
 [dev-dependencies]
 criterion = "0.3"

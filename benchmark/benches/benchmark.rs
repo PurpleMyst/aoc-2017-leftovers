@@ -58,6 +58,15 @@ pub fn day21_benchmark(c: &mut Criterion) {
     group.finish()
 }
 
+pub fn day25_benchmark(c: &mut Criterion) {
+    let mut group = c.benchmark_group("day25");
+
+    group.bench_function("parsing", |b| b.iter(day25::load_input));
+    group.bench_function("solve", |b| b.iter(day25::solve));
+
+    group.finish()
+}
+
 criterion_group! {
     name = benches;
 
@@ -72,6 +81,7 @@ criterion_group! {
         day20_benchmark,
         day21_benchmark,
         day23_benchmark,
+        day25_benchmark,
 }
 
 criterion_main!(benches);
