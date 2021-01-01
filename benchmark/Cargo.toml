@@ -6,6 +6,7 @@ edition = "2018"
 
 [dependencies]
 day20 = { path = "../day20" }
+day23 = { path = "../day23" }
 
 [dev-dependencies]
 criterion = "0.3"
